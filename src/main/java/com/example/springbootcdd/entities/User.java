@@ -1,5 +1,7 @@
 package com.example.springbootcdd.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_user")
-public class User {
+public class User  {
     
 
     @Id
@@ -42,6 +44,10 @@ public class User {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Long getId(){
         return id;
     }
@@ -50,8 +56,16 @@ public class User {
         return phone;
     }
 
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
+
     public String getEmail(){
         return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
     }
 
     
