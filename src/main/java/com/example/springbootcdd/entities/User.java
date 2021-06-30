@@ -1,15 +1,20 @@
 package com.example.springbootcdd.entities;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_user")
@@ -19,14 +24,18 @@ public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+  
     private String name;
-    @NotBlank @Email
+
     private String email;
-    @NotBlank @Size(min = 9, max = 9)
+
     private String phone;
-    @NotBlank @Size(min = 6)
+
     private String password;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
     public User(){
         
@@ -34,6 +43,7 @@ public class User  {
 
     public User(@NotBlank String name, @NotBlank @Email String email, @NotBlank @Size(min = 9, max = 9) String phone,
             @NotBlank @Size(min = 6) String password) {
+        
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -68,6 +78,12 @@ public class User  {
         this.email = email;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+   
+    
     
 
     

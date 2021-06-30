@@ -17,6 +17,8 @@ public class CreateUserRequest {
     @NotBlank @Size(min = 6)
     private String password;
 
+   
+
     public CreateUserRequest(@NotBlank String name, @NotBlank @Email String email,
             @NotBlank @Size(min = 9, max = 9) String phone, @NotBlank @Size(min = 6) String password) {
         this.name = name;
