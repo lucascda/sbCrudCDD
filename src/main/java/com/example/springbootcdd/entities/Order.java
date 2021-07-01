@@ -9,9 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Entity
@@ -29,6 +29,7 @@ public class Order {
     
     @ManyToOne
     @JoinColumn(name = "client_id")
+    @JsonIgnore
     User client;
     
     public Order(){

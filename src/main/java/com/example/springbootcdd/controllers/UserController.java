@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.example.springbootcdd.controllers.exceptions.ResourceNotFoundException;
+import com.example.springbootcdd.entities.Order;
 import com.example.springbootcdd.entities.User;
+import com.example.springbootcdd.repositories.OrderRepository;
 import com.example.springbootcdd.repositories.UserRepository;
 import com.example.springbootcdd.requests.CreateUserRequest;
 
@@ -30,6 +32,9 @@ public class UserController {
 
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     @PostMapping
     @Transactional
@@ -60,6 +65,22 @@ public class UserController {
             throw new ResourceNotFoundException(id);
         }        
 
+    }
+
+    @GetMapping(value = "/{id}/orders")
+    public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long id){
+        try{
+            Optional<User> user = repository.findById(id);
+            try {
+                List<Order> orders = user.get().getOrders();
+                return ResponseEntity.ok().body(orders);
+            } catch (NoSuchElementException e) {
+                throw new ResourceNotFoundException();
+            }
+        }
+        catch(NoSuchElementException e){
+            throw new ResourceNotFoundException(id);
+        }        
     }
 
     @PutMapping(value = "/{id}")
